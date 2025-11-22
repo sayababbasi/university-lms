@@ -1,0 +1,396 @@
+UNIVERSITY LMS & CRM — ERD (Entity Relationship Diagram)
+(Backend: Django — modules: users, courses, assignments, exams, results, finance, attendance, timetable, notifications, library)
+ 1. USERS MODULE
+Tables
+User
+
+id (PK)
+
+username
+
+email
+
+password
+
+role (student / teacher / admin / finance)
+
+date_joined
+
+is_active
+
+Student
+
+user_id (FK → User)
+
+registration_no
+
+department
+
+semester
+
+phone
+
+address
+
+Teacher
+
+user_id (FK → User)
+
+designation
+
+department
+
+specialization
+
+Staff
+
+user_id (FK → User)
+
+staff_role
+
+department
+
+Relationships
+
+User 1—1 Student
+
+User 1—1 Teacher
+
+User 1—1 Staff
+
+ 2. COURSES MODULE
+Course
+
+id (PK)
+
+title
+
+code
+
+department
+
+credit_hours
+
+teacher_id (FK → Teacher)
+
+Module
+
+id (PK)
+
+course_id (FK → Course)
+
+title
+
+Lesson
+
+id (PK)
+
+module_id (FK → Module)
+
+title
+
+description
+
+file (PDF / video / audio)
+
+Enrollment
+
+id (PK)
+
+student_id (FK → Student)
+
+course_id (FK → Course)
+
+status (active, completed, dropped)
+
+Relationships
+
+Course 1—M Module
+
+Module 1—M Lesson
+
+Course M—M Student (via Enrollment)
+
+Course 1—M Teacher
+
+3. ASSIGNMENTS MODULE
+Assignment
+
+id (PK)
+
+course_id (FK → Course)
+
+teacher_id (FK → Teacher)
+
+title
+
+description
+
+due_date
+
+Submission
+
+id (PK)
+
+assignment_id (FK → Assignment)
+
+student_id (FK → Student)
+
+file
+
+submitted_at
+
+Grade
+
+id (PK)
+
+submission_id (FK → Submission)
+
+marks
+
+feedback
+
+Relationships
+
+Assignment 1—M Submission
+
+Submission 1—1 Grade
+
+4. EXAMS MODULE
+Exam
+
+id
+
+course_id (FK → Course)
+
+title
+
+exam_type (mcq / written)
+
+total_marks
+
+date
+
+QuestionBank
+
+id
+
+exam_id (FK → Exam)
+
+question_text
+
+option_a
+
+option_b
+
+option_c
+
+option_d
+
+correct_answer
+
+ExamAttempt
+
+id
+
+exam_id (FK → Exam)
+
+student_id (FK → Student)
+
+obtained_marks
+
+submitted_at
+
+Relationships
+
+Exam 1—M QuestionBank
+
+Exam 1—M ExamAttempt
+
+Student 1—M ExamAttempt
+
+5. RESULTS MODULE
+Result
+
+id
+
+student_id (FK → Student)
+
+course_id (FK → Course)
+
+exam_id (FK → Exam)
+
+total_marks
+
+obtained_marks
+
+grade
+
+Transcript
+
+id
+
+student_id (FK → Student)
+
+cgpa
+
+semester
+
+Relationships
+
+Student 1—M Result
+
+Result M—1 Course
+
+Student 1—1 Transcript
+
+6. FINANCE MODULE
+FeeChallan
+
+id
+
+student_id (FK → Student)
+
+amount
+
+due_date
+
+status (paid/unpaid)
+
+Payment
+
+id
+
+challan_id (FK → FeeChallan)
+
+amount
+
+payment_method
+
+payment_date
+
+transaction_id
+
+Scholarship
+
+id
+
+student_id (FK → Student)
+
+percentage
+
+description
+
+Relationships
+
+FeeChallan 1—1/M Payment
+
+Student 1—M FeeChallan
+
+Student 1—M Scholarship
+
+7. NOTIFICATIONS MODULE
+Notification
+
+id
+
+user_id (FK → User)
+
+message
+
+type (email/sms/in-app)
+
+status (sent/pending)
+
+8. ATTENDANCE MODULE
+Attendance
+
+id
+
+student_id (FK → Student)
+
+course_id (FK → Course)
+
+date
+
+status (present/absent)
+
+Relationships
+
+Student 1—M Attendance
+
+Course 1—M Attendance
+
+9. TIMETABLE MODULE
+Timetable
+
+id
+
+course_id (FK → Course)
+
+teacher_id (FK → Teacher)
+
+day
+
+start_time
+
+end_time
+
+room
+
+10. LIBRARY MODULE
+Book
+
+id
+
+title
+
+author
+
+isbn
+
+category
+
+copies_available
+
+Issue
+
+id
+
+book_id (FK → Book)
+
+student_id (FK → Student)
+
+issue_date
+
+return_date
+
+Relationships
+
+Book 1—M Issue
+
+Student 1—M Issue
+
+FINAL ERD SUMMARY
+
+Your system has the following relationship structure:
+
+Main Relationships
+
+User → Student/Teacher/Staff (1:1)
+
+Student ↔ Course (M:N via Enrollment)
+
+Course → Module → Lesson (1:M)
+
+Assignment → Submission → Grade (1:M:1)
+
+Exam → Questions → ExamAttempts (1:M:M)
+
+Student → Results → Transcript
+
+Student → FeeChallan → Payment
+
+Student → Attendance
+
+Book → Issue (1:M)

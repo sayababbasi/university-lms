@@ -1,0 +1,533 @@
+# .gitignore for University LMS project (comprehensive cross-platform / multi-language)
+# Place this file in the repository root.
+
+####################
+# Operating systems
+####################
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.nfs*
+
+####################
+# Editor / IDE
+####################
+# VS Code
+.vscode/
+.history/
+*.code-workspace
+
+# JetBrains (IntelliJ, PyCharm, WebStorm, PhpStorm, Rider, etc.)
+.idea/
+*.iml
+*.iws
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+
+# Visual Studio / Visual Studio Code / Rider
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Eclipse
+.project
+.settings/
+.metadata/
+.recommenders/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+####################
+# Logs and runtime
+####################
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# runtime files
+*.lock
+tmp/
+temp/
+*.tmp
+.cache/
+.cache-loader/
+dist/
+build/
+out/
+
+####################
+# Environment / Secrets
+####################
+# Environment variable files often contain secrets — keep out of repo
+.env
+.env.*.local
+.env.local
+.env.*.secret
+secrets.*
+credentials/
+*.pem
+*.key
+*.cer
+*.crt
+*.p12
+*.jks
+
+# Keys and token caches
+*.asc
+*.gpg
+
+####################
+# Dependency directories
+####################
+# Node / JavaScript
+node_modules/
+.npm/
+.pnp.*
+.pnp.js
+
+# Yarn v2 offline cache
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# PHP / Composer
+/vendor/
+
+# Ruby / Bundler
+.bundle/
+vendor/bundle/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+pip-wheel-metadata/
+pip-log.txt
+.pytest_cache/
+.tox/
+.cache/
+mypy_cache/
+.pyre/
+.coverage
+coverage.xml
+htmlcov/
+
+# Java / JVM
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.class
+*.log
+hs_err_pid*
+replay_pid*
+target/
+out/
+bin/
+build/
+.settings/
+.classpath
+.project
+.factorypath
+dependency-reduced-pom.xml
+release.properties
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Maven
+target/
+dependency-reduced-pom.xml
+
+# Scala / SBT
+target/
+dist/
+lib_managed/
+src_managed/
+project/target/
+project/project/
+
+# .NET
+bin/
+obj/
+Generated\ Files/
+*.dbmdl
+*.jfm
+
+####################
+# Containers / VM / Infrastructure
+####################
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+docker-compose.override.yml
+docker-compose.*.yml
+/docker-compose.*.yml
+**/docker-compose.override.yml
+**/docker-compose.*.yml
+docker-compose.local.yml
+docker volume/
+volumes/
+*.tar
+*.tgz
+
+# Docker build cache
+**/.docker/
+
+# Kubernetes / Helm
+helm-debug-*
+release-*.yaml
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+crash.log
+override.tf
+override.tf.json
+.terraform.lock.hcl
+*.tfvars
+secret.tfvars
+
+####################
+# Databases and caches
+####################
+*.sqlite3
+*.db
+*.db-journal
+*.sql
+*.bak
+dump.rdb
+redis-stable/
+*.sqlite
+
+# Postgres
+*.psql-history
+
+####################
+# Test / Coverage / Reports
+####################
+coverage/
+coverage.*
+coverage.html
+lcov-report/
+jest-results.json
+*.lcov
+
+####################
+# Build / Generated files
+####################
+# Next.js
+.next/
+.next/cache
+out/
+
+# Nuxt
+.nuxt/
+dist/
+
+# Gatsby
+.cache/
+public/
+
+# Parcel
+.cache/
+.parcel-cache/
+
+# Svelte
+/build/
+
+# React Native
+.expo/
+.expo-shared/
+
+# Android
+*.apk
+*.ap_/
+.gradle/
+local.properties
+.cxx/
+build/
+captures/
+.externalNativeBuild/
+
+# iOS
+build/
+DerivedData/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+*.xcworkspace
+project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+
+####################
+# Misc / Generated
+####################
+*.bak
+*.old
+*.orig
+*.save
+*.swp
+*.swo
+*.swn
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.gz
+
+# Ignore generated docs
+docs/_build/
+site/
+
+# Ignore local config files that shouldn't be committed
+local.env
+local.settings.json
+*.local
+
+# Ignore hidden history files
+.history/
+
+####################
+# CI / CI caches
+####################
+# GitHub Actions
+.github/workflows/__temporary/
+
+# CircleCI
+.circleci/**/node_modules
+
+# Travis
+.travis/
+
+# GitLab
+.gitlab-ci.yml.tar
+
+####################
+# Project-specific suggestions
+####################
+# Keep example env files in repo, ignore actual secrets
+.env.example
+
+# If your project contains course content or uploads used at runtime:
+uploads/
+media/
+user_uploads/
+tmp_uploads/
+
+# If you use LMS-specific tools (e.g., Moodle build artifacts), ignore their caches:
+moodledata/
+moodle/config.php
+
+
+# ============================================================
+# GLOBAL IGNORE
+# ============================================================
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Environment files
+*.env
+*.env.local
+*.env.development
+*.env.production
+*.env.test
+
+# Local secrets
+*.key
+*.pem
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Cache
+.cache/
+.temp/
+tmp/
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.db
+
+# ===================================================================
+# PYTHON / DJANGO
+# ===================================================================
+
+# Byte-compiled
+*.pyc
+*.pyo
+
+# Django stuff
+db.sqlite3
+media/
+staticfiles/
+static/
+*.pot
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# Migrations (OPTIONAL REMOVE IF YOU WANT TO TRACK THEM)
+# **If you want migration files in git, comment out next line**
+# */migrations/*
+
+# But always track __init__.py inside migrations
+!**/migrations/__init__.py
+
+# pytest cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# ===================================================================
+# NODE / NEXT.JS FRONTEND
+# ===================================================================
+
+node_modules/
+dist/
+.next/
+.next/static/
+out/
+coverage/
+
+# Next.js build artifacts
+*.next
+
+# Lock files (optional to track only one)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Static uploads
+public/uploads/
+public/temp/
+
+# ===================================================================
+# DOCKER
+# ===================================================================
+
+docker-data/
+docker-compose.override.yml
+
+# Docker volumes
+volumes/
+data/
+
+# ===================================================================
+# GENERAL PROJECT ARTIFACTS
+# ===================================================================
+
+# Backup files
+*.bak
+*.backup
+*.swp
+*~
+
+# Compiled
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# ===================================================================
+# MEDIA & STORAGE (ERP + LMS)
+# ===================================================================
+
+uploads/
+media/
+erp_media/
+lms_media/
+documents/
+exported/
+
+# ===================================================================
+# FRONTEND TOOLS
+# ===================================================================
+
+# TypeScript
+*.tsbuildinfo
+
+# ESLint
+.eslintcache
+
+# Tailwind
+*.css.map
+
+# ===================================================================
+# CLOUD / STORAGE / WORKSPACE
+# ===================================================================
+
+.aws/
+.gcloud/
+.ssh/
+terraform.tfstate
+terraform.tfstate.backup
+
+
+# End of file
+
+

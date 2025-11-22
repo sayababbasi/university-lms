@@ -1,0 +1,356 @@
+UNIVERSITY LMS — COMPLETE DEVELOPMENT TASK LIST (SEQUENCE-WISE)
+(Follow these steps one by one. This is your official development roadmap.)
+PHASE 1 — PROJECT SETUP (ROOT LEVEL)
+
+Create GitHub repository
+
+Create root folder university-lms/
+
+Create two sub-projects:
+
+backend/ → Django REST Framework
+
+frontend/ → Next.js (TypeScript)
+
+Add root README.md
+
+Setup .gitignore for Python, Node, Logs, ENV files
+
+Configure project-level environment variables structure
+
+Setup virtual environments
+
+Setup basic project documentation folder (docs/)
+
+PHASE 2 — BACKEND SETUP (Django + DRF)
+A. Project Bootstrapping
+
+Create Django project lms_crm/
+
+Create apps folder apps/
+
+Create apps for each module:
+
+users
+
+courses
+
+assignments
+
+exams
+
+results
+
+finance
+
+notifications
+
+attendance
+
+timetable
+
+library
+
+Install required packages (Django, DRF, JWT auth, CORS, etc.)
+
+Configure settings (DB, apps, middleware, authentication)
+
+Setup URLs, ASGI, WSGI
+
+PHASE 3 — BACKEND MODULE DEVELOPMENT (In Order)
+A. USERS MODULE (Start Here)
+
+Create User models (Student, Teacher, Admin, Roles)
+
+Create serializers
+
+Add JWT authentication
+
+Create permissions
+
+Create Auth APIs: Login, Signup, Logout
+
+Add signals (create profile on user creation)
+
+Add admin configuration
+
+Add tests
+
+B. COURSES MODULE
+
+Create models: Course, Module, Lesson, Resources
+
+Create serializers
+
+Create permissions
+
+Create views (CRUD, enroll, manage materials)
+
+Add search & filters
+
+Add tests
+
+C. ASSIGNMENTS MODULE
+
+Create models: Assignment, Submission, Grade
+
+Create serializers
+
+Create views (create assignment, submit)
+
+Add grading logic
+
+Add tests
+
+D. EXAMS MODULE
+
+Create models: Exam, QuestionBank, Schedule
+
+Create serializers
+
+Build exam views (start exam, auto-grade, MCQs)
+
+Build exam scoring logic
+
+Add test cases
+
+E. RESULTS MODULE
+
+Create models: GPA, Transcript, Result
+
+Add serializers
+
+Add publish result APIs
+
+Add calculations (CGPA, semester GPA)
+
+Write tests
+
+F. FINANCE MODULE
+
+Create models: Fees, Challans, Payments, Scholarships
+
+Add fee generation logic
+
+Add payment validation
+
+Connect payment APIs (Stripe/EasyPaisa/JazzCash - optional)
+
+Add tests
+
+G. NOTIFICATIONS MODULE
+
+Create models for email, SMS, in-app messages
+
+Write reusable notification services
+
+Build send notification API
+
+Write tests
+
+H. ATTENDANCE MODULE
+
+Create attendance models
+
+Add views for marking attendance
+
+Create analytics summary (per subject, per month)
+
+Add tests
+
+I. TIMETABLE MODULE
+
+Create timetable models
+
+Add timetable CRUD APIs
+
+Add student/teacher timetable views
+
+Run tests
+
+J. LIBRARY MODULE
+
+Create models (Book, Issue, Return)
+
+Create book search & filter APIs
+
+Create issue/return logic
+
+Add tests
+
+PHASE 4 — GLOBAL BACKEND SETUP
+
+Setup media handling (file uploads)
+
+Setup static file handling
+
+Add custom exceptions
+
+Add custom utils folder
+
+Setup logging (info + errors)
+
+Configure CORS for frontend
+
+Run full backend testing
+
+Generate API documentation in /docs/API/
+
+PHASE 5 — FRONTEND SETUP (Next.js + TypeScript)
+Initial Setup
+
+Initialize Next.js project
+
+Configure TypeScript
+
+Setup TailwindCSS
+
+Setup folder structure (src/pages, src/components, etc.)
+
+Create API service layer (services/api.ts)
+
+Create global Auth Context
+
+Setup protected routes
+
+Setup Axios interceptor with JWT
+
+PHASE 6 — FRONTEND PAGE DEVELOPMENT (In Order)
+A. Public Pages
+
+Landing page
+
+Login page
+
+B. Dashboard (User Portal)
+
+Dashboard main page
+
+Profile page
+
+C. Courses
+
+Display courses list
+
+Course detail page
+
+Materials page
+
+Enrollment page
+
+Video/file resource UI
+
+D. Assignments
+
+View all assignments
+
+Submit assignment
+
+View grades
+
+E. Exams
+
+Exam list
+
+Start exam page (MCQs)
+
+Auto-submit + score page
+
+F. Results
+
+Results overview
+
+Transcript page
+
+G. Finance
+
+Fee challan page
+
+Online payment page
+
+Payment history
+
+H. Attendance
+
+Attendance summary UI
+
+Daily record view
+
+I. Timetable
+
+Timetable page
+
+Class schedule calendar
+
+J. Library
+
+Book search
+
+Issue history
+
+Return status
+
+PHASE 7 — FRONTEND GLOBAL FEATURES
+
+Create common components (Navbar, Sidebar, Modal, Loader)
+
+Add theme context (light/dark)
+
+Add Toast notifications
+
+Add Loading states
+
+Add Error pages (404, 500)
+
+Add responsive UI
+
+PHASE 8 — TESTING & QA
+
+Test each frontend module
+
+Test backend API integration
+
+Fix all edge cases
+
+Conduct full system QA
+
+Fix bugs + re-test
+
+PHASE 9 — DEPLOYMENT
+
+Deploy backend (Render / EC2 / VPS)
+
+Deploy frontend (Vercel / Netlify)
+
+Add custom domain
+
+Add SSL
+
+Configure file storage (AWS S3 or local)
+
+Setup CI/CD
+
+Setup production database backup scripts
+
+PHASE 10 — DOCUMENTATION
+
+Update SRS
+
+Update API docs
+
+Update Architecture docs
+
+Add ERD
+
+Add UML diagrams
+
+Add final README
+
+⭐ FINAL SUMMARY — TOTAL 131 SEQUENTIAL TASKS
+
+This list is:
+
+✔ In correct software engineering sequence
+✔ Matching your exact folder structure
+✔ Covers backend + frontend + docs + testing + deployment
+✔ No extra fluff — all real development steps

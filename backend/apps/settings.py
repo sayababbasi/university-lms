@@ -1,0 +1,16 @@
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'rest_framework',
+    'corsheaders',
+    'apps.users',
+    'apps.courses',
+    'apps.assignments',
+    'apps.exams',
+    'apps.results',
+    'apps.finance',
+    'apps.notifications',
+    'apps.attendance',
+    'apps.timetable',
+    'apps.library',
+]

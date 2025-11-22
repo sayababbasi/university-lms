@@ -1,0 +1,173 @@
+# UNIVERSITY LMS — DATABASE SCHEMA (schema.txt)
+# Tables structured according to backend modules (Phase 3)
+# Format: Table | Column | Type | Constraints | Notes
+
+--- USERS MODULE ---
+users
+    id                  INT          PK, AUTO_INCREMENT
+    first_name          VARCHAR(50)  NOT NULL
+    last_name           VARCHAR(50)  NOT NULL
+    email               VARCHAR(100) UNIQUE NOT NULL
+    password            VARCHAR(255) NOT NULL
+    role                ENUM('admin','teacher','student','staff') DEFAULT 'student'
+    created_at          DATETIME     DEFAULT CURRENT_TIMESTAMP
+    updated_at          DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+profiles
+    id                  INT          PK, AUTO_INCREMENT
+    user_id             INT          FK(users.id) UNIQUE
+    phone               VARCHAR(20)
+    address             TEXT
+    profile_pic         VARCHAR(255)
+    department          VARCHAR(100)
+    created_at          DATETIME     DEFAULT CURRENT_TIMESTAMP
+
+--- COURSES MODULE ---
+categories
+    id                  INT          PK, AUTO_INCREMENT
+    name                VARCHAR(100) NOT NULL
+    description         TEXT
+
+courses
+    id                  INT          PK, AUTO_INCREMENT
+    title               VARCHAR(150) NOT NULL
+    description         TEXT
+    teacher_id          INT          FK(users.id)
+    category_id         INT          FK(categories.id)
+    start_date          DATE
+    end_date            DATE
+    created_at          DATETIME     DEFAULT CURRENT_TIMESTAMP
+
+modules
+    id                  INT          PK, AUTO_INCREMENT
+    course_id           INT          FK(courses.id)
+    title               VARCHAR(150)
+    description         TEXT
+
+lessons
+    id                  INT          PK, AUTO_INCREMENT
+    module_id           INT          FK(modules.id)
+    title               VARCHAR(150)
+    content_type        ENUM('video','document','pdf','quiz')
+    content_url         VARCHAR(255)
+    order_index         INT
+
+enrollments
+    id                  INT          PK, AUTO_INCREMENT
+    student_id          INT          FK(users.id)
+    course_id           INT          FK(courses.id)
+    enrollment_date     DATETIME     DEFAULT CURRENT_TIMESTAMP
+    status              ENUM('active','completed','dropped') DEFAULT 'active'
+
+--- ASSIGNMENTS MODULE ---
+assignments
+    id                  INT          PK, AUTO_INCREMENT
+    course_id           INT          FK(courses.id)
+    title               VARCHAR(150)
+    description         TEXT
+    due_date            DATETIME
+
+submissions
+    id                  INT          PK, AUTO_INCREMENT
+    assignment_id       INT          FK(assignments.id)
+    student_id          INT          FK(users.id)
+    file_url            VARCHAR(255)
+    grade               FLOAT
+    feedback            TEXT
+    submitted_at        DATETIME     DEFAULT CURRENT_TIMESTAMP
+
+--- EXAMS MODULE ---
+exams
+    id                  INT          PK, AUTO_INCREMENT
+    course_id           INT          FK(courses.id)
+    title               VARCHAR(150)
+    start_time          DATETIME
+    end_time            DATETIME
+    total_marks         INT
+
+questions
+    id                  INT          PK, AUTO_INCREMENT
+    exam_id             INT          FK(exams.id)
+    question_text       TEXT
+    question_type       ENUM('mcq','descriptive')
+    options             JSON
+    correct_answer      VARCHAR(255)
+    marks               INT
+
+--- RESULTS MODULE ---
+results
+    id                  INT          PK, AUTO_INCREMENT
+    student_id          INT          FK(users.id)
+    course_id           INT          FK(courses.id)
+    assignment_grade    FLOAT
+    exam_grade          FLOAT
+    total_grade         FLOAT
+    gpa                 FLOAT
+
+--- FINANCE MODULE ---
+fees
+    id                  INT          PK, AUTO_INCREMENT
+    student_id          INT          FK(users.id)
+    course_id           INT          FK(courses.id)
+    amount              DECIMAL(10,2)
+    status              ENUM('pending','paid','overdue') DEFAULT 'pending'
+    due_date            DATE
+
+payments
+    id                  INT          PK, AUTO_INCREMENT
+    fee_id              INT          FK(fees.id)
+    payment_date        DATETIME
+    payment_method      ENUM('credit_card','paypal','bank_transfer','cash')
+    status              ENUM('completed','failed') DEFAULT 'completed'
+
+scholarships
+    id                  INT          PK, AUTO_INCREMENT
+    student_id          INT          FK(users.id)
+    name                VARCHAR(100)
+    amount              DECIMAL(10,2)
+    awarded_at          DATETIME
+
+--- NOTIFICATIONS MODULE ---
+notifications
+    id                  INT          PK, AUTO_INCREMENT
+    user_id             INT          FK(users.id)
+    type                ENUM('email','sms','in_app')
+    title               VARCHAR(150)
+    message             TEXT
+    read_status         BOOLEAN      DEFAULT FALSE
+    created_at          DATETIME     DEFAULT CURRENT_TIMESTAMP
+
+--- ATTENDANCE MODULE ---
+attendance
+    id                  INT          PK, AUTO_INCREMENT
+    student_id          INT          FK(users.id)
+    course_id           INT          FK(courses.id)
+    date                DATE
+    status              ENUM('present','absent','late') DEFAULT 'present'
+
+--- TIMETABLE MODULE ---
+timetable
+    id                  INT          PK, AUTO_INCREMENT
+    course_id           INT          FK(courses.id)
+    day_of_week         ENUM('Mon','Tue','Wed','Thu','Fri','Sat','Sun')
+    start_time          TIME
+    end_time            TIME
+    room_number         VARCHAR(50)
+
+--- LIBRARY MODULE ---
+books
+    id                  INT          PK, AUTO_INCREMENT
+    title               VARCHAR(150)
+    author              VARCHAR(100)
+    isbn                VARCHAR(50)
+    category            VARCHAR(100)
+    total_copies        INT
+    available_copies    INT
+
+book_issues
+    id                  INT          PK, AUTO_INCREMENT
+    book_id             INT          FK(books.id)
+    student_id          INT          FK(users.id)
+    issue_date          DATETIME     DEFAULT CURRENT_TIMESTAMP
+    return_date         DATETIME
+    status              ENUM('issued','returned','late') DEFAULT 'issued'

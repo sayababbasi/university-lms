@@ -1,0 +1,202 @@
+university-lms/
+│
+├── backend/                                 # Django REST Backend
+│   ├── manage.py                            # Django CLI entrypoint (runserver, migrate)
+│   ├── requirements.txt                     # Python dependencies (Django, DRF, etc.)
+│   │
+│   ├── lms_crm/                             # Core Django project folder
+│   │   ├── __init__.py
+│   │   ├── settings.py                      # Django settings (DB, apps, middleware, auth)
+│   │   ├── urls.py                          # Root URL router
+│   │   ├── asgi.py                          # ASGI entry for async servers
+│   │   └── wsgi.py                          # WSGI entry for production
+│   │
+│   ├── apps/                                # All modular apps
+│   │   ├── users/                           # Authentication + Roles + Accounts
+│   │   │   ├── __init__.py
+│   │   │   ├── admin.py
+│   │   │   ├── apps.py
+│   │   │   ├── models.py                    # User, Student, Teacher, Staff
+│   │   │   ├── serializers.py
+│   │   │   ├── permissions.py
+│   │   │   ├── views.py
+│   │   │   ├── urls.py
+│   │   │   ├── signals.py
+│   │   │   ├── tests.py
+│   │   │   └── utils.py
+│   │   │
+│   │   ├── courses/                         # Courses, Sections, Lectures
+│   │   │   ├── __init__.py
+│   │   │   ├── admin.py
+│   │   │   ├── models.py                    # Course, Module, Lesson, Resources
+│   │   │   ├── serializers.py
+│   │   │   ├── views.py                     # Create course, enroll, manage materials
+│   │   │   ├── urls.py
+│   │   │   ├── permissions.py
+│   │   │   ├── tests.py
+│   │   │   └── utils.py
+│   │   │
+│   │   ├── assignments/                     # Assignments + Submissions
+│   │   │   ├── __init__.py
+│   │   │   ├── admin.py
+│   │   │   ├── models.py                    # Assignment, Submission, Grade
+│   │   │   ├── serializers.py
+│   │   │   ├── views.py                     # Add assignments, submit work
+│   │   │   ├── urls.py
+│   │   │   ├── permissions.py
+│   │   │   ├── tests.py
+│   │   │   └── utils.py
+│   │   │
+│   │   ├── exams/                           # Exam management
+│   │   │   ├── __init__.py
+│   │   │   ├── admin.py
+│   │   │   ├── models.py                    # Exam, Question Bank, Schedule
+│   │   │   ├── serializers.py
+│   │   │   ├── views.py                     # Auto-grading, MCQs
+│   │   │   ├── urls.py
+│   │   │   ├── permissions.py
+│   │   │   ├── tests.py
+│   │   │   └── utils.py
+│   │   │
+│   │   ├── results/                         # Grades, GPA, Transcript
+│   │   │   ├── __init__.py
+│   │   │   ├── admin.py
+│   │   │   ├── models.py                    # Result, GPA, Transcript
+│   │   │   ├── serializers.py
+│   │   │   ├── views.py                     # Publish results
+│   │   │   ├── urls.py
+│   │   │   ├── tests.py
+│   │   │   └── utils.py
+│   │   │
+│   │   ├── finance/                         # Fee, Payment, Scholarships
+│   │   │   ├── __init__.py
+│   │   │   ├── admin.py
+│   │   │   ├── models.py                    # FeeChallan, Payment, Scholarships
+│   │   │   ├── serializers.py
+│   │   │   ├── views.py                     # Generate fees, check payment status
+│   │   │   ├── urls.py
+│   │   │   ├── tests.py
+│   │   │   └── utils.py
+│   │   │
+│   │   ├── notifications/                   # System notifications
+│   │   │   ├── __init__.py
+│   │   │   ├── admin.py
+│   │   │   ├── models.py                    # Email, SMS, In-app notify
+│   │   │   ├── serializers.py
+│   │   │   ├── views.py                     # Send notifications
+│   │   │   ├── urls.py
+│   │   │   ├── tests.py
+│   │   │   └── utils.py
+│   │   │
+│   │   ├── attendance/                      # Student & Teacher attendance
+│   │   │   ├── admin.py
+│   │   │   ├── models.py                    # Attendance records
+│   │   │   ├── serializers.py
+│   │   │   ├── views.py
+│   │   │   ├── urls.py
+│   │   │   └── tests.py
+│   │   │
+│   │   ├── timetable/                       # Timetable & Scheduling
+│   │   │   ├── models.py
+│   │   │   ├── serializers.py
+│   │   │   ├── views.py
+│   │   │   ├── urls.py
+│   │   │   └── tests.py
+│   │   │
+│   │   ├── library/                         # Library management
+│   │   │   ├── models.py                    # Books, Issue, Return
+│   │   │   ├── views.py
+│   │   │   ├── serializers.py
+│   │   │   └── urls.py
+│   │
+│   ├── static/                              # Static files (CSS, JS)
+│   ├── media/                               # File uploads
+│   ├── scripts/                             # Backup, cron jobs
+│   └── utils/                               # Shared helpers
+│
+├── frontend/                                 # Next.js + TypeScript frontend
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── next.config.js
+│   │
+│   ├── public/                               # Public assets
+│   │   ├── logo.png
+│   │   └── favicon.ico
+│   │
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── index.tsx                     # Landing page
+│   │   │   ├── login.tsx                     # Login page
+│   │   │   ├── dashboard/                    # Main dashboard
+│   │   │   │   ├── index.tsx
+│   │   │   │   └── profile.tsx
+│   │   │   ├── courses/
+│   │   │   │   ├── index.tsx
+│   │   │   │   ├── [courseId].tsx
+│   │   │   │   └── materials.tsx
+│   │   │   ├── assignments/
+│   │   │   │   ├── index.tsx
+│   │   │   │   ├── submit.tsx
+│   │   │   │   └── grade.tsx
+│   │   │   ├── exams/
+│   │   │   │   ├── index.tsx
+│   │   │   │   ├── start.tsx
+│   │   │   │   └── result.tsx
+│   │   │   ├── results/
+│   │   │   │   ├── index.tsx
+│   │   │   │   └── transcript.tsx
+│   │   │   └── finance/
+│   │   │       ├── index.tsx
+│   │   │       └── pay.tsx
+│   │   │
+│   │   ├── components/
+│   │   │   ├── common/                       # Reusable UI
+│   │   │   │   ├── Navbar.tsx
+│   │   │   │   ├── Sidebar.tsx
+│   │   │   │   ├── Loader.tsx
+│   │   │   │   └── Modal.tsx
+│   │   │   ├── dashboard/
+│   │   │   ├── courses/
+│   │   │   ├── exams/
+│   │   │   └── finance/
+│   │   │
+│   │   ├── context/
+│   │   │   ├── AuthContext.tsx
+│   │   │   ├── UserContext.tsx
+│   │   │   └── ThemeContext.tsx
+│   │   │
+│   │   ├── hooks/
+│   │   │   ├── useAuth.ts
+│   │   │   ├── useApi.ts
+│   │   │   └── useTheme.ts
+│   │   │
+│   │   ├── services/                         # API calls
+│   │   │   ├── api.ts
+│   │   │   ├── auth.service.ts
+│   │   │   ├── course.service.ts
+│   │   │   ├── exam.service.ts
+│   │   │   ├── result.service.ts
+│   │   │   └── finance.service.ts
+│   │   │
+│   │   └── styles/
+│   │       ├── globals.css
+│   │       ├── dashboard.css
+│   │       ├── courses.css
+│   │       └── theme.css
+│
+├── docs/                                     # Documentation
+│   ├── API/
+│   │   ├── users.md
+│   │   ├── courses.md
+│   │   ├── assignments.md
+│   │   ├── exams.md
+│   │   ├── results.md
+│   │   └── finance.md
+│   ├── ERD/                                  # ER Diagrams
+│   │   └── erd.pdf
+│   ├── UML/                                  # Use-case, Sequence diagrams
+│   ├── SRS.md                                # Software Requirements Specification
+│   ├── ARCHITECTURE.md                       # System Architecture
+│   └── README.md
+│
+└── README.md                                 # Root README
