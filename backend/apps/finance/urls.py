@@ -1,9 +1,14 @@
-# backend/apps/finance/urls.py
-# User app URLs (basic placeholder to avoid empty urlpatterns) + (Developed by SAYAB)
+# File: backend/apps/finance/urls.py
+# Router for finance (Developed by SAYAB)
 
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import FeeChallanViewSet, PaymentViewSet, StudentChallanViewSet, PaymentProofViewSet
 
-urlpatterns = [
-    path('', views.dummy_view, name='finance-home'),
-]
+router = DefaultRouter()
+router.register(r"challans", FeeChallanViewSet)
+router.register(r"payments", PaymentViewSet)
+router.register(r"student", StudentChallanViewSet, basename='student-challan')
+router.register(r"proofs", PaymentProofViewSet)
+
+urlpatterns = [path("", include(router.urls))]

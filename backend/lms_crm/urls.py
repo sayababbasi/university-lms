@@ -1,62 +1,42 @@
-# # backend/lms_crm/urls.py
-# from django.contrib import admin
-# from django.urls import path, include
-# from django.http import HttpResponse
-
-# # --- Developed by SAYAB ---
-# def root_view(request):
-#     return HttpResponse("Welcome to University LMS Backend!")
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('', root_view, name='root'),  # <-- root URL
-#     path('users/', include('apps.users.urls')),
-#     path('courses/', include('apps.courses.urls')),
-#     path('assignments/', include('apps.assignments.urls')),
-#     path('attendance/', include('apps.attendance.urls')),
-# ]
-
-
-# backend/lms_crm/urls.py
 from django.contrib import admin
 from django.urls import path, include
 from django.http import JsonResponse
+from django.conf import settings
+from django.conf.urls.static import static
 
-# --- Developed by SAYAB ---
 def root_api(request):
     """
     Root API view listing all available apps and their main endpoints.
-    Useful for testing the backend during development.
     """
     data = {
-        "message": "Welcome to University LMS Backend!",
-        "endpoints": {
-            "users": "/users/",
-            "courses": "/courses/",
-            "assignments": "/assignments/",
-            "exams": "/exams/",
-            "results": "/results/",
-            "finance": "/finance/",
-            "library": "/library/",
-            "notifications": "/notifications/",
-            "attendance": "/attendance/",
-            "timetable": "/timetable/",
-            "admin": "/admin/",
-        }
+        "message": "Welcome to Revotic LMS Backend API!",
+        "version": "1.0.0",
+        "docs": "/docs/",
+        "admin_panel": "/admin/",
+        "api_root": "/api/"
     }
     return JsonResponse(data)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', root_api, name='root-api'),  # <-- root API
-    path('users/', include('apps.users.urls')),
-    path('courses/', include('apps.courses.urls')),
-    path('assignments/', include('apps.assignments.urls')),
-    path('exams/', include('apps.exams.urls')),
-    path('results/', include('apps.results.urls')),
-    path('finance/', include('apps.finance.urls')),
-    path('library/', include('apps.library.urls')),
-    path('notifications/', include('apps.notifications.urls')),
-    path('attendance/', include('apps.attendance.urls')),
-    path('timetable/', include('apps.timetable.urls')),
+    path('', root_api, name='root-api'),
+    
+    # API Routes
+    path('api/', include('apps.users.urls')), # Includes users, students, teachers, auth
+    
+    # Placeholder for other apps (will uncomment as I implement them)
+    path('api/', include('apps.courses.urls')),
+    path('api/', include('apps.assignments.urls')),
+    # path('api/assignments/', include('apps.assignments.urls')),
+    path('api/exams/', include('apps.exams.urls')),
+    path('api/results/', include('apps.results.urls')),
+    path('api/finance/', include('apps.finance.urls')),
+    path('api/library/', include('apps.library.urls')),
+    path('api/dashboard/', include('apps.dashboard.urls')),
+    path('api/notifications/', include('apps.notifications.urls')),
+    path('api/attendance/', include('apps.attendance.urls')),
+    path('api/timetable/', include('apps.timetable.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

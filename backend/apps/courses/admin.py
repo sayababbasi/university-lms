@@ -1,20 +1,18 @@
-# apps/courses/admin.py
-# Developed by SAYAB
-
 from django.contrib import admin
-from .models import Course, Module, Lesson
+from .models import Course, Module, Lesson, Resource
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ("title", "teacher", "created_at")
-    search_fields = ("title", "teacher__user__username")
+    list_display = ('title', 'teacher', 'created_at')
 
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
-    list_display = ("title", "course")
-    search_fields = ("title", "course__title")
+    list_display = ('title', 'course', 'order')
 
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ("title", "module")
-    search_fields = ("title", "module__title")
+    list_display = ('title', 'module', 'order')
+
+@admin.register(Resource)
+class ResourceAdmin(admin.ModelAdmin):
+    list_display = ('title', 'lesson', 'file')

@@ -1,4 +1,4 @@
-UNIVERSITY LMS & CRM — ERD (Entity Relationship Diagram)
+Revotic LMS & CRM — ERD (Entity Relationship Diagram)
 (Backend: Django — modules: users, courses, assignments, exams, results, finance, attendance, timetable, notifications, library)
  1. USERS MODULE
 Tables

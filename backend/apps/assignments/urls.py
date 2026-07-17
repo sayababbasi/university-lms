@@ -1,10 +1,15 @@
-# backend/apps/assignments/urls.py
-# User app URLs (basic placeholder to avoid empty urlpatterns) + (Developed by SAYAB)
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import AssignmentViewSet, SubmissionViewSet, GradeViewSet, CourseAssignmentStatsViewSet, StudentAssignmentListView, AssignmentSubmissionView
 
-# backend/apps/assignments/urls.py
-from django.urls import path
-from . import views
+router = DefaultRouter()
+router.register(r'assignments', AssignmentViewSet)
+router.register(r'submissions', SubmissionViewSet)
+router.register(r'grades', GradeViewSet)
+router.register(r'assignment-stats', CourseAssignmentStatsViewSet, basename='course-stats')
 
 urlpatterns = [
-    path('', views.dummy_view, name='assignments-home'),
+    path('assignments/student/list/', StudentAssignmentListView.as_view(), name='student-assignments-list'),
+    path('assignments/student/<int:pk>/submit/', AssignmentSubmissionView.as_view(), name='student-assignment-submit'),
+    path('', include(router.urls)),
 ]
