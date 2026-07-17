@@ -334,30 +334,11 @@ class RegisterView(APIView):
         user.first_name = data.get('first_name', '')
         user.last_name = data.get('last_name', '')
 
-        # Handle Composite Roles for Demo
-        if role == 'demo_full':
-            user.is_staff = True # Admin
-            user.is_teacher = True
-            user.is_student = True
-            user.save()
-            # Create all profiles
-            Teacher.objects.create(user=user, department="General")
-            
-            import random
-            roll_num = f"TEMP-{random.randint(1000, 9999)}"
-            Student.objects.create(user=user, roll_number=roll_num, department="General")
+        # Handle Roles
+        if role not in ['student', 'teacher']:
+            return Response({"error": "Invalid role specified"}, status=status.HTTP_400_BAD_REQUEST)
 
-        elif role == 'demo_academic':
-            user.is_teacher = True
-            user.is_student = True
-            user.save()
-            Teacher.objects.create(user=user, department="General")
-            
-            import random
-            roll_num = f"TEMP-{random.randint(1000, 9999)}"
-            Student.objects.create(user=user, roll_number=roll_num, department="General")
-
-        elif role == 'teacher':
+        if role == 'teacher':
             user.is_teacher = True
             user.save()
             Teacher.objects.create(user=user, department="General") # Placeholder dept
