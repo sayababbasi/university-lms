@@ -13,6 +13,7 @@ from .serializers import (
 )
 from apps.users.permissions import IsTeacher, IsAdmin
 from rest_framework.views import APIView
+from utils.email_service import EmailService
 
 class StudentCoursesView(generics.ListAPIView):
     serializer_class = CourseListSerializer
@@ -21,7 +22,9 @@ class StudentCoursesView(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         if hasattr(user, 'student_profile'):
-            return Course.objects.filter(students=user.student_profile)
+            return Course.objects.select_related('teacher').prefetch_related(
+                'teachers', 'students'
+            ).filter(students=user.student_profile)
         return Course.objects.none()
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -39,17 +42,22 @@ class CourseViewSet(viewsets.ModelViewSet):
             
         from django.db.models import Q
         
+        # Base optimization for all queries
+        qs = Course.objects.select_related('teacher').prefetch_related(
+            'teachers', 'students', 'modules__lessons__resources'
+        ).order_by('-created_at')
+        
         if user.is_staff or user.is_superuser:
-            return Course.objects.all().order_by('-created_at')
+            return qs
             
         if user.is_teacher:
-            return Course.objects.filter(
+            return qs.filter(
                 Q(teacher=user) | Q(teachers=user)
-            ).distinct().order_by('-created_at')
+            ).distinct()
             
         # Students might need to see the full catalog to enroll
         if user.is_student:
-            return Course.objects.all().order_by('-created_at')
+            return qs
             
         return Course.objects.none()
     
@@ -113,7 +121,7 @@ class ModuleViewSet(viewsets.ModelViewSet):
         return [permissions.IsAuthenticated(), (IsTeacher | IsAdmin)()]
 
     def get_queryset(self):
-        qs = Module.objects.all()
+        qs = Module.objects.prefetch_related('lessons__resources').all()
         course_id = self.request.query_params.get('course')
         if course_id:
             qs = qs.filter(course_id=course_id)
@@ -130,7 +138,7 @@ class LessonViewSet(viewsets.ModelViewSet):
         return [permissions.IsAuthenticated(), (IsTeacher | IsAdmin)()]
 
     def get_queryset(self):
-        qs = Lesson.objects.all()
+        qs = Lesson.objects.prefetch_related('resources').all()
         module_id = self.request.query_params.get('module')
         if module_id:
             qs = qs.filter(module_id=module_id)
@@ -197,6 +205,7 @@ class EnrollmentRequestViewSet(viewsets.ModelViewSet):
             if hasattr(req.student, 'student_profile'):
                 print(f"DEBUG: Adding student profile {req.student.student_profile.id} to course {req.course.code}")
                 req.course.students.add(req.student.student_profile)
+                EmailService.send_enrollment_notification(req.student, req.course, 'APPROVED')
                 return Response({'status': 'Approved and enrolled'})
             
             print("DEBUG: User has NO student profile")
@@ -215,4 +224,5 @@ class EnrollmentRequestViewSet(viewsets.ModelViewSet):
 
         req.status = 'REJECTED'
         req.save()
+        EmailService.send_enrollment_notification(req.student, req.course, 'REJECTED')
         return Response({'status': 'Rejected'})
